@@ -12,6 +12,9 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
+# 🛠️ ADD THIS to force Node to listen on 0.0.0.0 (needed for Fly!)
+ENV HOST=0.0.0.0
+
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -34,6 +37,8 @@ FROM base
 # Copy built application
 COPY --from=build /app /app
 
-# Start the server by default, this can be overwritten at runtime
+# Expose the port that Fly will connect to
 EXPOSE 3000
+
+# Start the server
 CMD [ "node", "index.js" ]
