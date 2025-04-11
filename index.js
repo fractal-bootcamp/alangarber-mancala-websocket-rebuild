@@ -103,9 +103,9 @@ io.on('connection', (socket) => {
       };
 
       // Send 'matched' event
-      io.to(socket.id).emit('matched', { gameId, player: "player2" });
-      io.to(opponent.id).emit('matched', { gameId, player: "player1" });
-
+      io.to(socket.id).emit('matched', { gameId, player: "player2", currentPlayer: "player1" });
+      io.to(opponent.id).emit('matched', { gameId, player: "player1", currentPlayer: "player1" });
+      
       console.log(`Match found: ${opponent.id} vs ${socket.id}`);
 
       // Send initial game state separately to each player
